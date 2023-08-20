@@ -1,16 +1,43 @@
 import React, { useEffect } from 'react';
 import { GoogleLogin } from "react-google-login";
 import { gapi } from 'gapi-script';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import pixelVideos from '../assets/pixel.mp4';
 import logo from '../assets/logo.png';
-const Login = () => {
+import {client} from '../client'
+import { useNavigate } from 'react-router-dom';
 
+
+const Login = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     gapi.load('client:auth2', () => {
       gapi.auth2.init({ clientId: process.env.REACT_APP_GOOGLE_API_TOKEN })
     })
   }, [])
+
+
+
+  const responseGoogle = (response) => {
+    // console.log(response);
+    localStorage.setItem('user', JSON.stringify(response.profileObj))
+    
+    const { name, googleId, imageUrl } = response.profileObj;
+
+    const doc = {
+      _id: googleId,
+      _type: 'user',
+      userName: name,
+      image:imageUrl
+    }
+
+    client.createIfNotExists(doc)
+      .then(() => {
+      navigate('/',{replace:true})
+    })
+
+  }
+
 
 
   return (
@@ -33,10 +60,7 @@ const Login = () => {
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
               buttonText="Sign In with Google"
-              onSuccess={credentialResponse => {
-                console.log(credentialResponse);
-              }}
-              isSignedIn={true}
+              onSuccess={responseGoogle}
               cookiePolicy={"single_host_origin"}
 
             />

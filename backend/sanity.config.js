@@ -5,9 +5,9 @@ import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'pixel_share',
+  title: 'Pixel_Share',
 
-  projectId: '8lkh2952',
+  projectId: '69j0p3mn',
   dataset: 'production',
 
   plugins: [deskTool(), visionTool()],

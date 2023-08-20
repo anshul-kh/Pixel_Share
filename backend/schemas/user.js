@@ -2,9 +2,14 @@ export default {
     name: 'user',
     title: 'User',
     type: 'document',
+     grants: [
+    {
+      permissions: ['create'],
+    },
+  ],
     fields: [
         {
-            name: 'user_name',
+            name: 'userName',
             title: 'UserName',
             type: 'string'
 

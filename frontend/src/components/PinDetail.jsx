@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Profile() {
+function PinDetail() {
   return (
     <div>
-      Prof
+      Details 
     </div>
   )
 }
 
-export default Profile
+export default PinDetail

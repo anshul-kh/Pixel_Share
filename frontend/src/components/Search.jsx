@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Profile() {
+const Search = () => {
   return (
     <div>
-      Prof
+      Search
     </div>
   )
 }
 
-export default Profile
+export default Search

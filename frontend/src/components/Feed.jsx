@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Profile() {
+function Feed() {
   return (
     <div>
-      Prof
+      Feed
     </div>
   )
 }
 
-export default Profile
+export default Feed

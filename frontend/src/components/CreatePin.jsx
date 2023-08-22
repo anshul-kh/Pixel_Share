@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Profile() {
+function CreatePin() {
   return (
     <div>
-      Prof
+      Create Pin
     </div>
   )
 }
 
-export default Profile
+export default CreatePin

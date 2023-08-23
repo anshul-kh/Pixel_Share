@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { client } from '../client'
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner.jsx';
-import { searchQuery } from '../utils/data';
+import { searchQuery, feedQuery } from '../utils/data';
 
 
 function Feed() {
@@ -21,18 +21,21 @@ function Feed() {
       })
 
     } else {
-      
+      client.fetch(feedQuery).then((data) => {
+        setPins(data);
+        setLoading(false);
+      })
 
     }
-    
 
-  },[categoryId])
 
-  if(loading) return <Spinner msg='Adding New Idead To Feed!!'/>
+  }, [categoryId])
+
+  if (loading) return <Spinner msg='Adding New Idead To Feed!!' />
 
   return (
     <div>
-      Feed
+      {pins && <MasonryLayout pins={pins} />}
     </div>
   )
 }

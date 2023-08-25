@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { GoogleLogin } from "react-google-login";
 import { gapi } from 'gapi-script';
-// import { useNavigate } from 'react-router-dom';
 import pixelVideos from '../assets/pixel.mp4';
 import logo from '../assets/logo.png';
 import {client} from '../client'

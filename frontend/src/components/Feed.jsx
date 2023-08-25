@@ -11,27 +11,34 @@ function Feed() {
   const [loading, setLoading] = useState(false);
   const { categoryId } = useParams();
   const [pins, setPins] = useState(null);
+
+
   useEffect(() => {
     setLoading(true);
-    if (categoryId) {
-      const query = searchQuery(categoryId);
-      client.fetch(query).then((data) => {
-        setPins(data);
-        setLoading(false);
-      })
+    async function dataLoad() {
+      if (categoryId) {
+        const query = searchQuery(categoryId);
+        await client.fetch(query).then((data) => {
+          setPins(data);
+          setLoading(false);
+        })
 
-    } else {
-      client.fetch(feedQuery).then((data) => {
-        setPins(data);
-        setLoading(false);
-      })
+      } else {
+        await client.fetch(feedQuery).then((data) => {
+          setPins(data);
+          setLoading(false);
+        })
+
+      }
 
     }
 
+    dataLoad();
 
   }, [categoryId])
 
   if (loading) return <Spinner msg='Adding New Idead To Feed!!' />
+  if (!pins?.length) return <h2>No Pins Avialable</h2>
 
   return (
     <div>

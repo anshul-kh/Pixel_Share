@@ -17,7 +17,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination,save } }) => {
     const navigate = useNavigate();
     const user = fetchUser();
     
-    const alreadySaved = !!(save?.filter((item) => item.postedBy._id === user.googleId))?.length;
+    const alreadySaved = !!(save?.filter((item) => item?.postedBy._id === user?.googleId))?.length;
 
     const savePin = (_id) => {
         if(!alreadySaved) {
@@ -26,10 +26,10 @@ const Pin = ({ pin: { postedBy, image, _id, destination,save } }) => {
             client.patch(_id).setIfMissing({save : []}).insert('after', 'save[-1]', [
                 {
                     _key: uuidv4(),
-                    userId: user.googleId,
+                    userId: user?.googleId,
                     postedBy: {
                         _type: 'postedBy',
-                        _ref:user.googleId
+                        _ref:user?.googleId
                     }
                 }
             ]).commit().then(() => {
@@ -42,7 +42,8 @@ const Pin = ({ pin: { postedBy, image, _id, destination,save } }) => {
     const deletePin = (_id) => {
 
         client.delete(_id).then(() => {
-            window.location.reload();
+            
+          window.location.reload() 
         })
 
     }
@@ -91,12 +92,12 @@ const Pin = ({ pin: { postedBy, image, _id, destination,save } }) => {
                             {destination && (
                                 <a href={destination} target='blank' rel='noreferrer' className='bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md'>
                                     <BsFillArrowUpCircleFill />
-                                    {destination.length>20 ? destination.slice(8,28) : destination.slice(8)}
+                                    {destination.length > 70 ? `${destination.slice(0, 40)}...` : `${destination.slice(0, 20)}...`}
                                 </a>
                             )}
 
                             {
-                                postedBy?._id === user.googleId && (
+                                postedBy?._id === user?.googleId && (
 
                                     <button type='button' 
                                         className='bg-white p-2  opacity-70 hover:opacity-100 text-dark font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none'    
